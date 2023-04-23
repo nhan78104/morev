@@ -6,6 +6,7 @@ import Home from './components/home/Home'
 import Header from './components/header/Header'
 import NotFound from './components/notFound/NotFound'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import Trailer from './components/trailer/Trailer'
 
 function App() {
   const [movies, setMovies] = useState()
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home movies={movies} />} />
+          <Route path='/Trailer/:ytTrailerId' element={<Trailer />} />
           <Route path='/404-not-found' element={<NotFound />} />
           <Route path='*' element={<Navigate to='/404-not-found' />} />
         </Route>
