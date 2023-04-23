@@ -8,6 +8,7 @@ import NotFound from './components/notFound/NotFound'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Trailer from './components/trailer/Trailer'
 import Reviews from './components/reviews/Reviews'
+import getApi from './db/db' // fake api
 
 function App() {
   const [movies, setMovies] = useState()
@@ -26,9 +27,12 @@ function App() {
 
   const getMovieData = async (movieId) => {
     try {
-      const response = await api.get(`api/v1/movies/${movieId}`)
+      // const response = await api.get(`api/v1/movies/${movieId}`)
 
-      const singleMovie = response.data
+      // const singleMovie = response.data
+      const response = getApi().find((obj) => obj.imdbId === 'tt3915174')
+      
+      const singleMovie = response
 
       setMovie(singleMovie)
 
