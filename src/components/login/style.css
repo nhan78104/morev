@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  background-image: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d);
+  background-image: linear-gradient(79deg, #7439db, #6f83c6 48%, #45bef7);
 }
 
 .auth-form-container,
@@ -20,8 +20,8 @@ label {
   padding: 0.25rem 0;
 }
 
-input {
-  margin: 0.5rem 0;
+.input-form {
+  margin-bottom: 1rem;
   padding: 1rem;
   border: none;
   border-radius: 10px;
@@ -36,9 +36,10 @@ input {
   color: #7439db;
   margin-top: 2rem;
 }
+
 .link-btn {
+  margin-top: 2rem;
   background: none;
   color: white;
-  text-decoration: underline;
   border: none;
 }

@@ -4,9 +4,11 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
+
   return (
     <Navbar bg='dark' variant='dark' expand='lg'>
       <Container fluid>
@@ -24,10 +26,23 @@ const Header = () => {
               Watch List
             </NavLink>
           </Nav>
-          <Button variant='outline-info' className='me-2'>
+          <Button
+            onClick={() => {
+              navigate('/login')
+            }}
+            variant='outline-info'
+            className='me-2'
+          >
             Login
           </Button>
-          <Button variant='outline-info'>Sign Up</Button>
+          <Button
+            onClick={() => {
+              navigate('/sign-up')
+            }}
+            variant='outline-info'
+          >
+            Sign Up
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

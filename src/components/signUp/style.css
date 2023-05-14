@@ -19,8 +19,8 @@ label {
   padding: 0.25rem 0;
 }
 
-input {
-  margin: 0.5rem 0;
+.input-form {
+  margin-bottom: 1rem;
   padding: 1rem;
   border: none;
   border-radius: 10px;
@@ -35,7 +35,9 @@ input {
   color: #7439db;
   margin-top: 2rem;
 }
+
 .link-btn {
+  margin-top: 2rem;
   background: none;
   color: white;
   border: none;
