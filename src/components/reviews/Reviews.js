@@ -57,20 +57,21 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
               </Row>
             </>
           }
-          {reviews && reviews.map((review) => {
-            return (
-              <>
-                <Row>
-                  <Col>{review.body}</Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <hr />
-                  </Col>
-                </Row>
-              </>
-            )
-          })}
+          {reviews &&
+            reviews.map((review) => {
+              return (
+                <>
+                  <Row>
+                    <Col>{review.body}</Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <hr />
+                    </Col>
+                  </Row>
+                </>
+              )
+            })}
         </Col>
       </Row>
       <Row>

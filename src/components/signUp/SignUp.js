@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom'
 
-export const Signup = () => {
+export const SignUp = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [name, setName] = useState('')
@@ -11,16 +11,26 @@ export const Signup = () => {
 
   const handleSubmit = (e) => {
     e.prevenDefault()
-    console.log(email)
   }
+
   return (
     <div className='signup'>
       <div className='auth-form-container'>
         <form className='register-form' onSubmit={handleSubmit}>
           <label htmlFor='name'>Full name</label>
-          <input value={name} name='name' id='name' placeholder='full Name' />
+          <input
+            className='input-form'
+            value={name}
+            name='name'
+            id='name'
+            placeholder='Full Name'
+            onChange={(e) => {
+              setName(e.target.value)
+            }}
+          />
           <label htmlFor='email'>Email</label>
           <input
+            className='input-form'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type='email'
@@ -30,10 +40,11 @@ export const Signup = () => {
           />
           <label htmlFor='password'>Password</label>
           <input
+            className='input-form'
             value={pass}
             onChange={(e) => setPass(e.target.value)}
             type='password'
-            placeholder='password'
+            placeholder='Password'
             id='password'
             name='password'
           />
@@ -41,8 +52,13 @@ export const Signup = () => {
             Sign Up
           </button>
         </form>
-        <button className='link-btn' onClick={() => { navigate('/login') }}>
-          Already have an acount? Login here.{' '}
+        <button
+          className='link-btn'
+          onClick={() => {
+            navigate('/login')
+          }}
+        >
+          Already have an acount? Login here.
         </button>
       </div>
     </div>

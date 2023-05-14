@@ -10,7 +10,8 @@ import Trailer from './components/trailer/Trailer'
 import Reviews from './components/reviews/Reviews'
 import getApi from './db/db' // fake api
 import { Login } from './components/login/Login'
-import { Signup } from './components/signup/Signup'
+import { SignUp } from './components/signUp/SignUp'
+import UserPage from './components/userPage/UserPage'
 
 function App() {
   const [movies, setMovies] = useState()
@@ -33,7 +34,7 @@ function App() {
 
       // const singleMovie = response.data
       const response = getApi().find((obj) => obj.imdbId === 'tt3915174')
-      
+
       const singleMovie = response
 
       setMovie(singleMovie)
@@ -55,7 +56,8 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home movies={movies} />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/sign-up' element={<Signup />}/>
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/user' element={<UserPage />} />
           <Route path='/Trailer/:ytTrailerId' element={<Trailer />} />
           <Route
             path='/Reviews/:movieId'
