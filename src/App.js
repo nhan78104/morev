@@ -5,13 +5,14 @@ import Layout from './components/Layout'
 import Home from './components/home/Home'
 import Header from './components/header/Header'
 import NotFound from './components/notFound/NotFound'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import Trailer from './components/trailer/Trailer'
 import Reviews from './components/reviews/Reviews'
 import getApi from './db/db' // fake api
 import { Login } from './components/login/Login'
 import { SignUp } from './components/signUp/SignUp'
 import UserPage from './components/userPage/UserPage'
+import AuthProvider from './context/AuthProvider'
 
 function App() {
   const [movies, setMovies] = useState()
@@ -50,24 +51,25 @@ function App() {
   }, [])
 
   return (
-    <div className='App'>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route path='/' element={<Home movies={movies} />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/sign-up' element={<SignUp />} />
-          <Route path='/user' element={<UserPage />} />
-          <Route path='/Trailer/:ytTrailerId' element={<Trailer />} />
-          <Route
-            path='/Reviews/:movieId'
-            element={<Reviews getMovieData={getMovieData} movie={movie} reviews={reviews} setReviews={setReviews} />}
-          />
-          <Route path='/404-not-found' element={<NotFound />} />
-          <Route path='*' element={<Navigate to='/404-not-found' />} />
-        </Route>
-      </Routes>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route path='/' element={<Home movies={movies} />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/user' element={<UserPage />} />
+            <Route path='/trailer/:ytTrailerId' element={<Trailer />} />
+            <Route
+              path='/reviews/:movieId'
+              element={<Reviews getMovieData={getMovieData} movie={movie} reviews={reviews} setReviews={setReviews} />}
+            />
+            <Route path='/404-not-found' element={<NotFound />} />
+            <Route path='*' element={<Navigate to='/404-not-found' />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 
