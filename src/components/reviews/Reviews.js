@@ -15,6 +15,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
     const rev = revText.current
 
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await api.post('/api/v1/reviews', { reviewBody: rev.value, imdbId: movieId })
 
       const updatedReview = [...reviews, { body: rev.value }]
@@ -29,7 +30,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
 
   useEffect(() => {
     getMovieData(movieId)
-  }, [])
+  }, [getMovieData, movieId])
 
   return (
     <Container>

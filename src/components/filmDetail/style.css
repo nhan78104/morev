@@ -1,0 +1,52 @@
+.hero-container {
+  overflow: hidden;
+}
+
+.hero-container .poster {
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.hero-container h2 {
+  font-size: 1rem;
+}
+
+.hero-container .descrpition {
+  position: absolute;
+  z-index: 1;
+  color: #5bcae8;
+  top: 8rem;
+  left: 4rem;
+  max-width: 50%;
+}
+
+.hero-container .poster::after {
+  background: linear-gradient(
+    90deg,
+    #181818 10%,
+    hsla(0, 0%, 9%, 0.98) 20%,
+    hsla(0, 0%, 9%, 0.97) 25%,
+    hsla(0, 0%, 9%, 0.95) 35%,
+    hsla(0, 0%, 9%, 0.94) 40%,
+    hsla(0, 0%, 9%, 0.92) 45%,
+    hsla(0, 0%, 9%, 0.9) 50%,
+    hsla(0, 0%, 9%, 0.87) 55%,
+    hsla(0, 0%, 9%, 0.82) 60%,
+    hsla(0, 0%, 9%, 0.75) 65%,
+    hsla(0, 0%, 9%, 0.63) 70%,
+    hsla(0, 0%, 9%, 0.45) 75%,
+    hsla(0, 0%, 9%, 0.27) 80%,
+    hsla(0, 0%, 9%, 0.15) 85%,
+    hsla(0, 0%, 9%, 0.08) 90%,
+    hsla(0, 0%, 9%, 0.03) 95%,
+    hsla(0, 0%, 9%, 0)
+  );
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 400px;
+  top: 0;
+}
