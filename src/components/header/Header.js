@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthProvider'
-import { Avatar, Dropdown, Menu } from 'antd'
+import { Avatar, Dropdown } from 'antd'
 
 const Header = () => {
   const { user, setUser } = useContext(AuthContext)

@@ -1,0 +1,97 @@
+.hero-container {
+  overflow: hidden;
+}
+
+.hero-container .poster {
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.hero-container h2 {
+  font-size: 1rem;
+}
+
+.hero-container .descrpition {
+  position: absolute;
+  z-index: 1;
+  color: #5bcae8;
+  top: 8rem;
+  left: 4rem;
+  max-width: 40%;
+  text-align: justify;
+}
+
+.hero-container .descrpition h2 {
+  max-width: 60%;
+}
+
+.hero-container .descrpition h2:last-child {
+  margin-top: 3rem;
+}
+
+.hero-container .review {
+  position: relative;
+  z-index: 1;
+  color: #5bcae8;
+  max-width: 50%;
+  top: 14rem;
+  left: 4rem;
+}
+
+.hero-container .poster::after {
+  background: linear-gradient(
+    90deg,
+    #181818 10%,
+    hsla(0, 0%, 9%, 0.98) 20%,
+    hsla(0, 0%, 9%, 0.97) 25%,
+    hsla(0, 0%, 9%, 0.95) 35%,
+    hsla(0, 0%, 9%, 0.94) 40%,
+    hsla(0, 0%, 9%, 0.92) 45%,
+    hsla(0, 0%, 9%, 0.9) 50%,
+    hsla(0, 0%, 9%, 0.87) 55%,
+    hsla(0, 0%, 9%, 0.82) 60%,
+    hsla(0, 0%, 9%, 0.75) 65%,
+    hsla(0, 0%, 9%, 0.63) 70%,
+    hsla(0, 0%, 9%, 0.45) 75%,
+    hsla(0, 0%, 9%, 0.27) 80%,
+    hsla(0, 0%, 9%, 0.15) 85%,
+    hsla(0, 0%, 9%, 0.08) 90%,
+    hsla(0, 0%, 9%, 0.03) 95%,
+    hsla(0, 0%, 9%, 0)
+  );
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 400px;
+  top: 0;
+}
+
+.recommend-container h1 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-bottom: 2rem;
+}
+
+.recommend-container .recommend-movie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recommend-container .recommend-movie-item {
+  width: 20vw;
+  margin: 0 2rem 2rem;
+}
+
+.recommend-container .recommend-movie-item img {
+  width: 100%;
+}
+
+.recommend-container .recommend-movie-item h3 {
+  text-align: center;
+  font-size: 1.5rem;
+}
