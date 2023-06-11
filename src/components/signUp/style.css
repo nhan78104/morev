@@ -57,9 +57,3 @@
   margin: 0.5rem;
   color: #ff3333;
 }
-
-.signup .loading {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-}

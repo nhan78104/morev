@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom'
-import ReactPlayer from 'react-player'
-import './Trailer.css'
 import React from 'react'
+import ReactPlayer from 'react-player'
+import { useParams } from 'react-router-dom'
+
+import './Trailer.css'
 
 const Trailer = () => {
   const params = useParams()

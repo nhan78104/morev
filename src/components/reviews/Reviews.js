@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
-import api from '../../api/axiosConfig'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { Container, Row, Col } from 'react-bootstrap'
-import ReviewForm from '../reviewForm/ReviewForm'
+
+import api from '../../api/axiosConfig'
 import getMovieById from '../../api/getMovieById'
+import ReviewForm from '../reviewForm/ReviewForm'
 
 const Reviews = ({ reviews, setReviews }) => {
   const revText = useRef()
