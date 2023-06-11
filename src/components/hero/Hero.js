@@ -6,10 +6,9 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
-import ObjectID from 'bson-objectid'
-
 const Hero = ({ movies }) => {
   const navigate = useNavigate()
+
   const reviews = (movieId) => {
     navigate(`/reviews/${movieId}`)
   }
@@ -28,8 +27,12 @@ const Hero = ({ movies }) => {
                         <img src={movie.poster} alt='' />
                       </div>
                       <div className='movie-title'>
-                        <Link to={`/film-detail/${ObjectID(movie.id.timestamp).toHexString()}`}>{movie.title}</Link>
-                        {/* Xài api của Tri không viết dấu */}
+                        <Link
+                          to={`/film-detail/${movie.id}`}
+                          style={{ textDecoration: 'none', color: '#5bcae8', fontSize: '2rem' }}
+                        >
+                          {movie.title}
+                        </Link>
                       </div>
                       <div className='movie-buttons-container'>
                         <Link to={`/trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
@@ -38,7 +41,7 @@ const Hero = ({ movies }) => {
                           </div>
                         </Link>
                         <div className='movie-review-button-container'>
-                          <Button variant='info' onClick={() => reviews(movie?.movieId)}>
+                          <Button variant='info' onClick={() => reviews(movie?.id)}>
                             Review
                           </Button>
                         </div>

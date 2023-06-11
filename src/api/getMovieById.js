@@ -1,8 +1,8 @@
 import api from './axiosConfig'
 
-const getMovieData = async (movieId) => {
+const getMovieById = async (id) => {
   try {
-    const response = await api.get(`api/v1/movies/${movieId}`)
+    const response = await api.get(`api/v1/movies/${id}`)
 
     const singleMovie = response.data
 
@@ -12,4 +12,4 @@ const getMovieData = async (movieId) => {
   }
 }
 
-export default getMovieData
+export default getMovieById

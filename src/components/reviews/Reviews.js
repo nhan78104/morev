@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import api from '../../api/axiosConfig'
 import { useParams } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReviewForm from '../reviewForm/ReviewForm'
+import getMovieById from '../../api/getMovieById'
 
-const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
+const Reviews = ({ reviews, setReviews }) => {
   const revText = useRef()
+  const [movie, setMovie] = useState({ setReviews })
+  const [isLoading, setIsLoading] = useState(true)
   let params = useParams()
-  const movieId = params.movieId
+  const movieId = params.id
 
   const addReview = async (e) => {
     e.preventDefault()
@@ -15,7 +18,6 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
     const rev = revText.current
 
     try {
-      // eslint-disable-next-line no-unused-vars
       const response = await api.post('/api/v1/reviews', { reviewBody: rev.value, imdbId: movieId })
 
       const updatedReview = [...reviews, { body: rev.value }]
@@ -28,9 +30,25 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
     }
   }
 
+  const fetch = useCallback(async () => {
+    try {
+      const res = await getMovieById(movieId)
+      setMovie(res)
+
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      setIsLoading(false)
+    }
+  }, [movieId])
+
   useEffect(() => {
-    getMovieData(movieId)
-  }, [getMovieData, movieId])
+    fetch()
+  }, [fetch])
+
+  if (isLoading) {
+    return <h3>Loading...</h3>
+  }
 
   return (
     <Container>

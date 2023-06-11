@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import getMovieData from '../../api/getMovieById'
+import getMovieById from '../../api/getMovieById'
 import './style.css'
 
 const FilmDetail = (movies) => {
@@ -9,7 +9,7 @@ const FilmDetail = (movies) => {
 
   const params = useParams()
 
-  const movieId = params.movieId
+  const movieId = params.id
   const recommendMovie = movies.movies.filter((mov) => {
     // max la 12 phim
     return mov.genres.find((genre) => genre === 'Science Fiction')
@@ -17,9 +17,7 @@ const FilmDetail = (movies) => {
 
   const fetch = useCallback(async () => {
     try {
-      // const res = await getMovieData(movieId)
-      const res = movies.movies[0]
-      console.log(res)
+      const res = await getMovieById(movieId)
       setMovie(res)
 
       setIsLoading(false)
@@ -55,6 +53,7 @@ const FilmDetail = (movies) => {
                   }, '')
                   .substring(2)}
             </h2>
+            <h2>{movie.releaseDate}</h2>
             <h2>
               Id excepteur proident nisi cillum. Nulla non cupidatat voluptate irure non culpa reprehenderit nisi dolor
               tempor ut elit. Ad nostrud Lorem laborum velit elit mollit reprehenderit aliqua est sunt dolor excepteur.
@@ -67,11 +66,9 @@ const FilmDetail = (movies) => {
         <div className='recommend-movie'>
           {recommendMovie.map((movie) => {
             return (
-              <>
-                <div className='recommend-movie-item' key={movie.title}>
-                  <img src={movie.poster} alt={movie.title} />
-                </div>
-              </>
+              <div className='recommend-movie-item' key={movie.title}>
+                <img src={movie.poster} alt={movie.title} />
+              </div>
             )
           })}
         </div>
