@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
 import getMovieById from '../../api/getMovieById'
 import './style.css'
 
