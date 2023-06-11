@@ -1,46 +1,63 @@
-import React, { useState, useContext } from 'react'
-import './style.css'
+import { Input } from 'antd'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import getUserInfo from '../../api/getUserInfo'
+import userAuthentication from '../../api/userAuthentication'
 import { AuthContext } from '../../context/AuthProvider'
+import Loading from '../loading/Loading'
+import './style.css'
 
 export const Login = (props) => {
   const { setUser } = useContext(AuthContext)
   const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
+  const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   const navigate = useNavigate()
 
-  const handleSubmit = () => {
-    // xử lý login
+  const handleAuthentication = async () => {
+    try {
+      const res = await userAuthentication({
+        email,
+        password,
+      })
+      localStorage.setItem('accessToken', res.accessToken)
+      localStorage.setItem('refreshToken', res.refreshToken)
 
-    setUser(true) // sau chuyển true thành thông tin của user
-    navigate('/') // login xong chuyển về trang chủ
+      const user = await getUserInfo(res.accessToken)
+
+      setUser(user)
+      setIsLoading(false)
+      navigate('/')
+    } catch (error) {
+      setError(true)
+      setIsLoading(false)
+    }
+  }
+
+  const handleLogin = () => {
+    // xử lý login
+    setIsLoading(true)
+    handleAuthentication()
   }
 
   return (
-    <div className='Login'>
+    <div className='login'>
+      {isLoading && <Loading />}
       <div className='auth-form-container'>
         <label form='email'>Email</label>
-        <input
+        <Input
           className='input-form'
-          value={email}
           onChange={(e) => setEmail(e.target.value)}
           type='email'
           placeholder='Youremail@gmail.com'
-          id='email'
-          name='email'
         />
         <label form='password'>Password</label>
-        <input
-          className='input-form'
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-          type='password'
-          placeholder='Password'
-          id='password'
-          name='password'
-        />
-        <button className='login-btn' onClick={handleSubmit}>
+        <Input.Password className='input-form' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+        {error && <span className='error'>Tài khoản hoặc mật khẩu sai.</span>}
+        <button className='login-btn' onClick={handleLogin}>
           Log In
         </button>
         <button
@@ -49,7 +66,7 @@ export const Login = (props) => {
             navigate('/sign-up')
           }}
         >
-          Don't have an acount? Sign up here.
+          Don't have an account? Sign up here.
         </button>
       </div>
     </div>
