@@ -27,8 +27,12 @@ const Hero = ({ movies }) => {
                         <img src={movie.poster} alt='' />
                       </div>
                       <div className='movie-title'>
-                        <Link to={`/film-detail/${movie.id}`}>{movie.title}</Link>
-                        {/* Xài api của Tri không viết dấu */}
+                        <Link
+                          to={`/film-detail/${movie.id}`}
+                          style={{ textDecoration: 'none', color: '#5bcae8', fontSize: '2rem' }}
+                        >
+                          {movie.title}
+                        </Link>
                       </div>
                       <div className='movie-buttons-container'>
                         <Link to={`/trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
