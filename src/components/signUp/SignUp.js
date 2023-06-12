@@ -65,6 +65,7 @@ export const SignUp = () => {
     <div className='signup'>
       {isLoading && <Loading />}
       <div className='auth-form-container'>
+        <h1 className='signup-title'>Sign Up</h1>
         <label htmlFor='name'>Full name</label>
         <input
           className='input-form'

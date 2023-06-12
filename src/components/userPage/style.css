@@ -1,86 +1,44 @@
-@media only screen and (min-width: 768px) {
-  .user-page {
-    width: 100vw;
-    min-height: calc(100vh - 56px);
-    background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 54%, rgba(0, 212, 255, 1) 100%);
-  }
-
-  .user-container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .avatar-container {
-    display: flex;
-    border: 2px solid #000;
-    flex-direction: column;
-    margin-top: 4rem;
-    align-items: center;
-    width: 20vw;
-    height: 50vh;
-    background-color: rgb(0, 136, 255);
-  }
-
-  .avatar-container .username {
-    color: #000000;
-    font-size: 1rem;
-    margin: 2rem 0;
-  }
-
-  .infomation-container {
-    display: flex;
-    width: 40vw;
-    height: 50vh;
-    margin-top: 4rem;
-    border: 2px solid #000;
-    border-left: none;
-    background-color: #5bcae8;
-  }
-
-  .infomation-container .form-detail {
-    margin-top: 8px;
-  }
-
-  label,
-  .ant-form-item-control-input-content {
-    font-size: 1rem !important;
-  }
+.user-page {
+  width: 100vw;
+  min-height: calc(100vh - 56px);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 54%, rgba(0, 212, 255, 1) 100%);
 }
 
-@media only screen and (max-width: 768px) {
-  * {
-    font-size: 1.25rem;
-  }
-  /* For mobile phones: */
-  .user-page {
-    width: 100vw;
-    height: 100vh;
-    overflow: scroll;
-    background-image: linear-gradient(79deg, #7439db, #6f83c6 48%, #45bef7);
-  }
+.user-container {
+  display: flex;
+  justify-content: center;
+}
 
-  .user-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
+.avatar-container {
+  display: flex;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  flex-direction: column;
+  margin-top: 4rem;
+  align-items: center;
+  width: 20vw;
+  min-height: 50vh;
+  background-color: rgb(0, 136, 255);
+}
 
-  .avatar-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 4rem;
-    align-items: center;
-  }
+.avatar-container .username {
+  color: #000000;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
 
-  .avatar-container .username {
-    color: #000000;
-    font-size: 1rem;
-    margin: 2rem 0;
-  }
+.infomation-container {
+  width: 40vw;
+  min-height: 50vh;
+  margin-top: 4rem;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-left: none;
+  background-color: #5bcae8;
+}
 
-  .infomation-container {
-    display: flex;
-    justify-content: center;
-  }
+.user-page label,
+.ant-form-item-control-input-content {
+  font-size: 1.25rem !important;
 }

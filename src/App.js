@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import './App.css'
-import getAllMovies from './api/getAllMovies'
 import Layout from './components/Layout'
 import AdminPage from './components/admin'
 import FilmDetail from './components/filmDetail/FilmDetail'
@@ -14,43 +13,32 @@ import { SignUp } from './components/signUp/SignUp'
 import Trailer from './components/trailer/Trailer'
 import UserPage from './components/userPage/UserPage'
 import AuthProvider from './context/AuthProvider'
+import MoviesProvider from './context/MoviesProvider'
+import PrivateRoutes from './utils/PrivateRoutes'
 
 function App() {
-  const [movies, setMovies] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-
-  const fetch = async () => {
-    const res = await getAllMovies()
-    setMovies(res)
-  }
-
-  useEffect(() => {
-    fetch()
-    setIsLoading(false)
-  }, [])
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path='/' element={<Layout />}>
-            <Route path='/' element={<Home movies={movies} />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/sign-up' element={<SignUp />} />
-            <Route path='/user' element={<UserPage />} />
-            <Route path='/trailer/:ytTrailerId' element={<Trailer />} />
-            <Route path='/film-detail/:id' element={<FilmDetail movies={movies} />} />
-            <Route path='/reviews/:id' element={<Reviews />} />
-            <Route path='/404-not-found' element={<NotFound />} />
-            <Route path='*' element={<Navigate to='/404-not-found' />} />
-            <Route path='/admin' element={<AdminPage />} />
-          </Route>
-        </Routes>
-      </AuthProvider>
+      <MoviesProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path='/' element={<Layout />}>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/sign-up' element={<SignUp />} />
+              <Route path='/trailer/:ytTrailerId' element={<Trailer />} />
+              <Route path='/film-detail/:id' element={<FilmDetail />} />
+              <Route path='/reviews/:id' element={<Reviews />} />
+              <Route path='/404-not-found' element={<NotFound />} />
+              <Route path='*' element={<Navigate to='/404-not-found' />} />
+              <Route element={<PrivateRoutes />}>
+                <Route path='/admin' element={<AdminPage />} />
+                <Route path='/user' element={<UserPage />} />
+              </Route>
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </MoviesProvider>
     </BrowserRouter>
   )
 }

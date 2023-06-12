@@ -1,17 +1,17 @@
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Dropdown } from 'antd'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthContext } from '../../context/AuthProvider'
 
 const Header = () => {
-  const { user, setIsLoggedIn, isLoggedIn } = useContext(AuthContext)
+  const { state, dispatch } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const items = [
@@ -26,9 +26,9 @@ const Header = () => {
         navigate('/user')
         break
       case 'logout':
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
-        setIsLoggedIn(false)
+        localStorage.clear()
+        sessionStorage.clear()
+        dispatch({ type: 'CLEAR_USER_INFO' })
         navigate('/login')
         break
       case 'admin':
@@ -42,23 +42,29 @@ const Header = () => {
   return (
     <Navbar bg='dark' variant='dark' expand='lg'>
       <Container fluid>
-        <Navbar.Brand href='/' style={{ color: '#5bcae8' }}>
+        <Link to='/' style={{ color: '#5bcae8', textDecoration: 'none' }}>
           <FontAwesomeIcon icon={faVideoSlash} />
           Morev
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls='navbarScroll' />
         <Navbar.Collapse id='navbarScroll'>
           <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '100px' }} navbarScroll>
-            <NavLink className='nav-link' to='/'>
+            <Link className='nav-link' to='/'>
               Home
-            </NavLink>
-            <NavLink className='nav-link' to='/watch-list'>
+            </Link>
+            <Link className='nav-link' to='/watch-list'>
               Watch List
-            </NavLink>
+            </Link>
           </Nav>
-          {isLoggedIn ? (
+          {state.isAuthenticated ? (
             <Dropdown menu={{ items, onClick }} trigger={['click']}>
-              <Avatar src='https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png' />
+              <Avatar
+                src={
+                  state.user.avatarUrl != null
+                    ? state.user.avatarUrl
+                    : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+                }
+              />
             </Dropdown>
           ) : (
             <>
