@@ -2,7 +2,8 @@
   .user-page {
     width: 100vw;
     min-height: calc(100vh - 56px);
-    background-image: linear-gradient(79deg, #7439db, #6f83c6 48%, #45bef7);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 54%, rgba(0, 212, 255, 1) 100%);
   }
 
   .user-container {
