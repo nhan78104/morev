@@ -1,18 +1,15 @@
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Paper } from '@mui/material'
-import Button from 'react-bootstrap/Button'
+import { useContext } from 'react'
 import Carousel from 'react-material-ui-carousel'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
+import { MoviesContext } from '../../context/MoviesProvider'
 import './Hero.css'
 
-const Hero = ({ movies }) => {
-  const navigate = useNavigate()
-
-  const reviews = (movieId) => {
-    navigate(`/reviews/${movieId}`)
-  }
+const Hero = () => {
+  const { movies } = useContext(MoviesContext)
 
   return (
     <div className='movie-carousel-container'>
@@ -41,11 +38,6 @@ const Hero = ({ movies }) => {
                             <FontAwesomeIcon className='play-button-icon' icon={faCirclePlay} />
                           </div>
                         </Link>
-                        <div className='movie-review-button-container'>
-                          <Button variant='info' onClick={() => reviews(movie?.id)}>
-                            Review
-                          </Button>
-                        </div>
                       </div>
                     </div>
                   </div>

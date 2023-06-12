@@ -1,4 +1,4 @@
-import { Input } from 'antd'
+import { Checkbox, Input } from 'antd'
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,10 +9,11 @@ import Loading from '../loading/Loading'
 import './style.css'
 
 export const Login = (props) => {
-  const { setUser, setIsLoggedIn } = useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isRemember, setIsRemember] = useState(false)
   const [error, setError] = useState(false)
 
   const navigate = useNavigate()
@@ -24,18 +25,22 @@ export const Login = (props) => {
         password,
       })
 
-      localStorage.setItem('accessToken', res.accessToken)
-      localStorage.setItem('refreshToken', res.refreshToken)
+      if (isRemember) {
+        localStorage.setItem('accessToken', res.accessToken)
+        localStorage.setItem('refreshToken', res.refreshToken)
+      } else {
+        sessionStorage.setItem('accessToken', res.accessToken)
+        sessionStorage.setItem('refreshToken', res.refreshToken)
+      }
+      dispatch({ type: 'SET_ACCESS_TOKEN', data: res.accessToken })
+      const userData = await getUserInfo(res.accessToken)
 
-      const user = await getUserInfo(res.accessToken)
+      dispatch({ type: 'SET_USER', data: userData })
 
-      setUser(user)
-      setIsLoggedIn(true)
       setIsLoading(false)
       navigate('/')
     } catch (error) {
       setError(true)
-      setIsLoggedIn(false)
       setIsLoading(false)
     }
   }
@@ -46,10 +51,15 @@ export const Login = (props) => {
     handleAuthentication()
   }
 
+  const onCheckboxChange = (e) => {
+    setIsRemember(e.target.checked)
+  }
+
   return (
     <div className='login'>
       {isLoading && <Loading />}
       <div className='auth-form-container'>
+        <h1 className='login-title'>Login</h1>
         <label form='email'>Email</label>
         <Input
           className='input-form'
@@ -60,6 +70,7 @@ export const Login = (props) => {
         <label form='password'>Password</label>
         <Input.Password className='input-form' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
         {error && <span className='error'>Tài khoản hoặc mật khẩu sai.</span>}
+        <Checkbox onChange={onCheckboxChange}>Remember me.</Checkbox>
         <button className='login-btn' onClick={handleLogin}>
           Log In
         </button>

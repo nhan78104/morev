@@ -2,18 +2,22 @@
 import { Avatar, Button, Form, Input, InputNumber } from 'antd'
 import React, { useContext, useState } from 'react'
 
+import updateUser from '../../api/updateUser'
 import { AuthContext } from '../../context/AuthProvider'
+import Loading from '../loading/Loading'
 import './style.css'
 
 const UserPage = () => {
-  const { user } = useContext(AuthContext)
+  const { state, dispatch } = useContext(AuthContext)
+  const [form] = Form.useForm()
   const [isEdit, setIsEdit] = useState(false)
-  const [userData, setUserData] = useState(user)
+  const [userData, setUserData] = useState(state.user)
+  const [loadingUserInfo, setLoadingUserInfo] = useState(false)
 
   const layout = {
-    labelCol: { span: 4 },
+    labelCol: { span: 8 },
     wrapperCol: { span: 20 },
-    style: { width: '100%', marginTop: '2rem', marginRight: '4rem' },
+    style: { width: '80%', marginTop: '2rem', marginRight: '4rem', textAlign: 'left' },
   }
 
   const validateMessages = {
@@ -41,35 +45,56 @@ const UserPage = () => {
     })
   }
 
-  const handleChangeUserInfo = (e) => {
+  const handleChangeUserInfo = async () => {
     // cập nhật thay đổi dữ liệu của user
-
-    setIsEdit(false)
+    try {
+      setLoadingUserInfo(true)
+      await updateUser(state.accessToken, userData)
+      dispatch({ type: 'SET_USER', data: userData })
+      setLoadingUserInfo(false)
+      setIsEdit(false)
+    } catch (error) {
+      console.log(error)
+      setLoadingUserInfo(false)
+      setIsEdit(false)
+    }
   }
 
   return (
     <div className='user-page'>
+      {loadingUserInfo && <Loading />}
       <div className='user-container'>
         <div className='avatar-container'>
           <Avatar
-            src={userData?.avatarUrl}
+            src={
+              userData != null && userData.avatarUrl != null
+                ? userData.avatarUrl
+                : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+            }
             size={150}
             style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}
-          >
-            {userData?.avatarUrl ? '' : userData?.fullName.charAt(0)?.toUpperCase()}
-          </Avatar>
+          />
 
-          <div className='username'>{userData?.fullName}</div>
+          {isEdit ? (
+            <Input name='displayName' onChange={handleInput} />
+          ) : (
+            <div className='username'>{userData?.displayName}</div>
+          )}
         </div>
         <div className='infomation-container'>
           {isEdit ? (
-            <Form {...layout} validateMessages={validateMessages} size='large'>
-              <Form.Item name='name' label='Tên' rules={[{ required: true }]} initialValue={userData?.fullName}>
-                <Input name='name' onChange={handleInput} />
+            <Form form={form} {...layout} validateMessages={validateMessages} size='large'>
+              <Form.Item
+                name='fullName'
+                label='Full mame'
+                rules={[{ required: true }]}
+                initialValue={userData?.fullName}
+              >
+                <Input name='fullName' onChange={handleInput} />
               </Form.Item>
               <Form.Item
                 name='age'
-                label='Tuổi'
+                label='Age'
                 rules={[{ type: 'number', min: 6, max: 200 }]}
                 initialValue={userData?.age}
               >
@@ -86,12 +111,12 @@ const UserPage = () => {
             </Form>
           ) : (
             <Form {...layout} validateMessages={validateMessages}>
-              <Form.Item label='Tên'>{userData?.fullName}</Form.Item>
-              <Form.Item label='Tuổi'>{userData?.age}</Form.Item>
+              <Form.Item label='Full name'>{userData?.fullName}</Form.Item>
+              <Form.Item label='Age'>{userData?.age}</Form.Item>
               <Form.Item label='Email'>{userData?.email}</Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
                 <Button
-                  // size='small'
+                  size='middle'
                   type='primary'
                   onClick={() => {
                     setIsEdit(true)

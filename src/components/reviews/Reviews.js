@@ -1,15 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 
 import api from '../../api/axiosConfig'
-import getMovieById from '../../api/getMovieById'
 import ReviewForm from '../reviewForm/ReviewForm'
 
-const Reviews = ({ reviews, setReviews }) => {
+const Reviews = ({ movie }) => {
   const revText = useRef()
-  const [movie, setMovie] = useState({ setReviews })
-  const [isLoading, setIsLoading] = useState(true)
+  const [reviews, setReviews] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   let params = useParams()
   const movieId = params.id
 
@@ -18,34 +17,18 @@ const Reviews = ({ reviews, setReviews }) => {
 
     const rev = revText.current
 
-    try {
-      const response = await api.post('/api/v1/reviews', { reviewBody: rev.value, imdbId: movieId })
+    console.log(rev.value)
 
-      const updatedReview = [...reviews, { body: rev.value }]
+    // try {
+    //   const response = await api.post('/api/v1/reviews', { reviewBody: rev.value, imdbId: movieId })
 
-      rev.value = ''
+    //   const updatedReview = [{ body: rev.value }]
 
-      setReviews(updatedReview)
-    } catch (error) {
-      console.log(error)
-    }
+    //   rev.value = ''
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
-
-  const fetch = useCallback(async () => {
-    try {
-      const res = await getMovieById(movieId)
-      setMovie(res)
-
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
-  }, [movieId])
-
-  useEffect(() => {
-    fetch()
-  }, [fetch])
 
   if (isLoading) {
     return <h3>Loading...</h3>
