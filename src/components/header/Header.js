@@ -15,6 +15,7 @@ const Header = () => {
   const navigate = useNavigate()
 
   const items = [
+    { label: 'Admin', key: 'admin' },
     { label: 'Profile', key: 'profile' },
     { label: 'Logout', key: 'logout' },
   ]
@@ -29,6 +30,9 @@ const Header = () => {
         localStorage.removeItem('refreshToken')
         setIsLoggedIn(false)
         navigate('/login')
+        break
+      case 'admin':
+        navigate('/admin')
         break
       default:
         break

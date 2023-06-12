@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import getAllMovies from './api/getAllMovies'
 import Layout from './components/Layout'
+import AdminPage from './components/admin'
 import FilmDetail from './components/filmDetail/FilmDetail'
 import Home from './components/home/Home'
 import { Login } from './components/login/Login'
@@ -46,6 +47,7 @@ function App() {
             <Route path='/reviews/:id' element={<Reviews />} />
             <Route path='/404-not-found' element={<NotFound />} />
             <Route path='*' element={<Navigate to='/404-not-found' />} />
+            <Route path='/admin' element={<AdminPage />} />
           </Route>
         </Routes>
       </AuthProvider>
