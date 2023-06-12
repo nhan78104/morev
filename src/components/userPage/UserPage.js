@@ -1,15 +1,14 @@
 /* eslint-disable no-template-curly-in-string */
-import React, { useState } from 'react'
-import './style.css'
 import { Avatar, Button, Form, Input, InputNumber } from 'antd'
+import React, { useContext, useState } from 'react'
+
+import { AuthContext } from '../../context/AuthProvider'
+import './style.css'
 
 const UserPage = () => {
+  const { user } = useContext(AuthContext)
   const [isEdit, setIsEdit] = useState(false)
-  const [userData, setUserData] = useState({
-    name: 'Taimanna',
-    age: 21,
-    email: 'nhannt.gm@gmail.com',
-  })
+  const [userData, setUserData] = useState(user)
 
   const layout = {
     labelCol: { span: 4 },
@@ -48,31 +47,40 @@ const UserPage = () => {
     setIsEdit(false)
   }
 
+  console.log(user)
+
+  if (!user) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className='user-page'>
       <div className='user-container'>
         <div className='avatar-container'>
-          <Avatar size={150} style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}>
-            U
-          </Avatar>
-
-          <div className='username'>{userData.name}</div>
+          <Avatar
+            src={
+              user?.avatarUrl ? user?.avatarUrl : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+            }
+            size={150}
+            style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}
+          />
+          <div className='username'>{userData?.fullName}</div>
         </div>
         <div className='infomation-container'>
           {isEdit ? (
             <Form {...layout} validateMessages={validateMessages} size='large'>
-              <Form.Item name='name' label='Tên' rules={[{ required: true }]} initialValue={userData.name}>
+              <Form.Item name='name' label='Tên' rules={[{ required: true }]} initialValue={userData?.fullName}>
                 <Input name='name' onChange={handleInput} />
               </Form.Item>
               <Form.Item
                 name='age'
                 label='Tuổi'
                 rules={[{ type: 'number', min: 6, max: 200 }]}
-                initialValue={userData.age}
+                initialValue={userData?.age}
               >
                 <InputNumber min='6' max='200' name='age' onChange={handleInputNumber} />
               </Form.Item>
-              <Form.Item name='email' label='Email' rules={[{ type: 'email' }]} initialValue={userData.email}>
+              <Form.Item name='email' label='Email' rules={[{ type: 'email' }]} initialValue={userData?.email}>
                 <Input name='email' onChange={handleInput} />
               </Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
@@ -83,9 +91,9 @@ const UserPage = () => {
             </Form>
           ) : (
             <Form {...layout} validateMessages={validateMessages}>
-              <Form.Item label='Tên'>{userData.name}</Form.Item>
-              <Form.Item label='Tuổi'>{userData.age}</Form.Item>
-              <Form.Item label='Email'>{userData.email}</Form.Item>
+              <Form.Item label='Tên'>{userData?.fullName}</Form.Item>
+              <Form.Item label='Tuổi'>{userData?.age}</Form.Item>
+              <Form.Item label='Email'>{userData?.email}</Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
                 <Button
                   // size='small'

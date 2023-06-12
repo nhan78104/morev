@@ -9,7 +9,7 @@ import Loading from '../loading/Loading'
 import './style.css'
 
 export const Login = (props) => {
-  const { setUser } = useContext(AuthContext)
+  const { setUser, setIsLoggedIn } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -23,16 +23,19 @@ export const Login = (props) => {
         email,
         password,
       })
+
       localStorage.setItem('accessToken', res.accessToken)
       localStorage.setItem('refreshToken', res.refreshToken)
 
       const user = await getUserInfo(res.accessToken)
 
       setUser(user)
+      setIsLoggedIn(true)
       setIsLoading(false)
       navigate('/')
     } catch (error) {
       setError(true)
+      setIsLoggedIn(false)
       setIsLoading(false)
     }
   }
@@ -47,6 +50,7 @@ export const Login = (props) => {
     <div className='login'>
       {isLoading && <Loading />}
       <div className='auth-form-container'>
+        <h1 className='login-title'>Login</h1>
         <label form='email'>Email</label>
         <Input
           className='input-form'

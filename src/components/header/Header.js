@@ -1,16 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Avatar, Dropdown } from 'antd'
+import { useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
 import { AuthContext } from '../../context/AuthProvider'
-import { Avatar, Dropdown } from 'antd'
 
 const Header = () => {
-  const { user, setUser } = useContext(AuthContext)
+  const { user, setIsLoggedIn, isLoggedIn } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const items = [
@@ -19,14 +20,14 @@ const Header = () => {
   ]
 
   const onClick = ({ key }) => {
-    console.log(key)
-    console.log(user)
     switch (key) {
       case 'profile':
         navigate('/user')
         break
       case 'logout':
-        setUser(false)
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        setIsLoggedIn(false)
         navigate('/login')
         break
       default:
@@ -37,23 +38,29 @@ const Header = () => {
   return (
     <Navbar bg='dark' variant='dark' expand='lg'>
       <Container fluid>
-        <Navbar.Brand href='/' style={{ color: '#5bcae8' }}>
+        <Link to='/' style={{ color: '#5bcae8', textDecoration: 'none' }}>
           <FontAwesomeIcon icon={faVideoSlash} />
           Morev
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls='navbarScroll' />
         <Navbar.Collapse id='navbarScroll'>
           <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '100px' }} navbarScroll>
-            <NavLink className='nav-link' to='/'>
+            <Link className='nav-link' to='/'>
               Home
-            </NavLink>
-            <NavLink className='nav-link' to='/watch-list'>
+            </Link>
+            <Link className='nav-link' to='/watch-list'>
               Watch List
-            </NavLink>
+            </Link>
           </Nav>
-          {user ? (
+          {isLoggedIn ? (
             <Dropdown menu={{ items, onClick }} trigger={['click']}>
-              <Avatar src='https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png' />
+              <Avatar
+                src={
+                  user?.avatarUrl
+                    ? user?.avatarUrl
+                    : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+                }
+              />
             </Dropdown>
           ) : (
             <>
