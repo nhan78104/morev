@@ -42,3 +42,22 @@
 .ant-form-item-control-input-content {
   font-size: 1.25rem !important;
 }
+
+.avatar-container .avatar-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.avatar-container .upload-btn {
+  position: absolute;
+  top: 5.5rem;
+  left: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-out 100ms;
+}
+
+.user-page .avatar-container:hover .upload-btn {
+  opacity: 1;
+}
