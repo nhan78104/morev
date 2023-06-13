@@ -15,21 +15,21 @@ const FilmDetail = () => {
   const params = useParams()
   const movieId = params.id
 
-  const fetch = async () => {
-    try {
-      setIsLoading(true)
-      const singleMovie = await getMovieById(movieId)
-
-      setMovie(singleMovie.data)
-
-      setIsLoading(false)
-    } catch (error) {
-      console.error('firm detail error', error)
-      setIsLoading(false)
-    }
-  }
-
   useEffect(() => {
+    const fetch = async () => {
+      try {
+        setIsLoading(true)
+        const singleMovie = await getMovieById(movieId)
+
+        setMovie(singleMovie.data)
+
+        setIsLoading(false)
+      } catch (error) {
+        console.error('firm detail error', error)
+        setIsLoading(false)
+      }
+    }
+
     fetch()
   }, [])
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 
@@ -16,8 +16,6 @@ const Reviews = ({ movie }) => {
     e.preventDefault()
 
     const rev = revText.current
-
-    console.log(rev.value)
 
     // try {
     //   const response = await api.post('/api/v1/reviews', { reviewBody: rev.value, imdbId: movieId })
