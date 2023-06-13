@@ -3,8 +3,8 @@ import { Avatar, Button, Form, Input, InputNumber } from 'antd'
 import React, { useContext, useState } from 'react'
 
 import updateUser from '../../api/updateUser'
+import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
-import Loading from '../loading/Loading'
 import './style.css'
 
 const UserPage = () => {

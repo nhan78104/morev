@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 
 import api from '../../api/axiosConfig'
-import ReviewForm from '../reviewForm/ReviewForm'
+import { ReviewForm } from '../../components'
 
 const Reviews = ({ movie }) => {
   const revText = useRef()

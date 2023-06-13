@@ -6,7 +6,7 @@ import Carousel from 'react-material-ui-carousel'
 import { Link } from 'react-router-dom'
 
 import { MoviesContext } from '../../context/MoviesProvider'
-import './Hero.css'
+import './style.css'
 
 const Hero = () => {
   const { movies } = useContext(MoviesContext)
