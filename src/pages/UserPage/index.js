@@ -67,7 +67,7 @@ const UserPage = () => {
     // cập nhật thay đổi dữ liệu của user
     try {
       setLoadingUserInfo(true)
-      updateUser(state.accessToken, userData)
+      await updateUser(state.accessToken, userData)
       dispatch({ type: 'SET_USER', data: userData })
       setLoadingUserInfo(false)
       setIsEdit(false)
@@ -149,6 +149,9 @@ const UserPage = () => {
               <Form.Item label='Age'>{userData?.age}</Form.Item>
               <Form.Item label='Email'>{userData?.email}</Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+                {!userData.enabled && (
+                  <h1 className='error-message'>*This account is not active, please check your email.</h1>
+                )}
                 <Button
                   size='middle'
                   type='primary'

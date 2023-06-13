@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import createUser from '../../api/createUser'
+import getUserInfo from '../../api/getUserInfo'
 import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
 import './style.css'
 
 const SignUp = () => {
-  const { setUser } = useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,8 +33,10 @@ const SignUp = () => {
       localStorage.setItem('accessToken', res.accessToken)
       localStorage.setItem('refreshToken', res.refreshToken)
 
+      dispatch({ type: 'SET_ACCESS_TOKEN', data: res.accessToken })
+      const userData = await getUserInfo(res.accessToken)
+      dispatch({ type: 'SET_USER', data: userData })
       setIsLoading(false)
-      setUser(true) // sau chuyển true thành thông tin của user
       navigate('/') // login xong chuyển về trang chủ
     } catch (error) {
       setFullNameError(null)
