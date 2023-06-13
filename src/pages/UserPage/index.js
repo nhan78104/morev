@@ -1,8 +1,10 @@
 /* eslint-disable no-template-curly-in-string */
-import { Avatar, Button, Form, Input, InputNumber } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
+import { Avatar, Button, Form, Input, InputNumber, Upload } from 'antd'
 import React, { useContext, useState } from 'react'
 
 import updateUser from '../../api/updateUser'
+import uploadAvatar from '../../api/uploadAvatar'
 import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
 import './style.css'
@@ -45,11 +47,27 @@ const UserPage = () => {
     })
   }
 
+  const handleImageUpload = async (e) => {
+    const imageResponse = await uploadAvatar(state.accessToken, e, e.name)
+    if (imageResponse) {
+      setUserData({
+        ...userData,
+        avatarUrl: imageResponse.url,
+      })
+    }
+  }
+
+  const props = {
+    name: 'file',
+    action: handleImageUpload,
+    showUploadList: false,
+  }
+
   const handleChangeUserInfo = async () => {
     // cập nhật thay đổi dữ liệu của user
     try {
       setLoadingUserInfo(true)
-      await updateUser(state.accessToken, userData)
+      updateUser(state.accessToken, userData)
       dispatch({ type: 'SET_USER', data: userData })
       setLoadingUserInfo(false)
       setIsEdit(false)
@@ -65,18 +83,34 @@ const UserPage = () => {
       {loadingUserInfo && <Loading />}
       <div className='user-container'>
         <div className='avatar-container'>
-          <Avatar
-            src={
-              userData != null && userData.avatarUrl != null
-                ? userData.avatarUrl
-                : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
-            }
-            size={150}
-            style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}
-          />
+          <div className='avatar-set'>
+            <Avatar
+              src={
+                userData != null && userData.avatarUrl != null
+                  ? userData.avatarUrl
+                  : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+              }
+              size={150}
+              style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}
+            />
+            {isEdit ? (
+              <Upload {...props} className='upload-btn'>
+                <Button icon={<UploadOutlined />}>Upload</Button>
+              </Upload>
+            ) : (
+              <></>
+            )}
+          </div>
 
           {isEdit ? (
-            <Input name='displayName' onChange={handleInput} />
+            <>
+              <Input
+                name='displayName'
+                onChange={handleInput}
+                value={userData.displayName}
+                style={{ marginTop: '2rem', maxWidth: '40%' }}
+              />
+            </>
           ) : (
             <div className='username'>{userData?.displayName}</div>
           )}

@@ -15,6 +15,10 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path='/' element={<Layout />}>
+              <Route element={<PrivateRoutes />}>
+                <Route path='/admin' element={<AdminPage />} />
+                <Route path='/user' element={<UserPage />} />
+              </Route>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/sign-up' element={<SignUp />} />
@@ -22,10 +26,6 @@ function App() {
               <Route path='/film-detail/:id' element={<FilmDetail />} />
               <Route path='/404-not-found' element={<NotFound />} />
               <Route path='*' element={<Navigate to='/404-not-found' />} />
-              <Route element={<PrivateRoutes />}>
-                <Route path='/admin' element={<AdminPage />} />
-                <Route path='/user' element={<UserPage />} />
-              </Route>
             </Route>
           </Routes>
         </AuthProvider>
