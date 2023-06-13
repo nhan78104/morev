@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthProvider'
 
 const PrivateRoutes = () => {
   const { state } = useContext(AuthContext)
-  return state.isAuthenticated ? <Outlet /> : <Navigate to='/404-not-found' />
+  return state.user ? <Outlet /> : <Navigate to='/' />
 }
 
 export default PrivateRoutes
