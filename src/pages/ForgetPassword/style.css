@@ -1,0 +1,45 @@
+.forget-password-container {
+  display: flex;
+  min-height: calc(100vh - 56px);
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 54%, rgba(0, 212, 255, 1) 100%);
+}
+
+.forget-password-container .email-label {
+  color: white;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.forget-password-container .forget-title {
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  margin-top: 8rem;
+}
+
+.forget-password-container .sent-button {
+  margin-left: 2rem;
+}
+
+.forget-password-container .ant-result-title {
+  color: white;
+}
+
+.forget-password-container .ant-result-subtitle a {
+  text-decoration: none;
+  color: white;
+}
+
+.forget-password-container .ant-result-subtitle a:hover {
+  color: #5bcae8;
+}
+
+.forget-password-container .success-container {
+  margin-top: 5rem;
+}

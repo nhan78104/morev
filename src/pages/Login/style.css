@@ -60,3 +60,21 @@
   margin-top: 0.5rem;
   color: #ff3333;
 }
+
+.login .login-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.login .forget-option {
+  text-decoration: none;
+  color: white;
+}
+
+.login .forget-option:hover,
+.login .link-btn:hover {
+  color: aqua;
+}

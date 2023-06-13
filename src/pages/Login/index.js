@@ -1,6 +1,6 @@
 import { Checkbox, Input } from 'antd'
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import getUserInfo from '../../api/getUserInfo'
 import userAuthentication from '../../api/userAuthentication'
@@ -70,7 +70,15 @@ const Login = (props) => {
         <label form='password'>Password</label>
         <Input.Password className='input-form' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
         {error && <span className='error'>Tài khoản hoặc mật khẩu sai.</span>}
-        <Checkbox onChange={onCheckboxChange}>Remember me.</Checkbox>
+        <div className='login-option'>
+          <Checkbox onChange={onCheckboxChange} style={{ fontSize: '1rem' }}>
+            Remember me.
+          </Checkbox>
+          <Link to='/forget-password' className='forget-option'>
+            Forgot password?
+          </Link>
+        </div>
+
         <button className='login-btn' onClick={handleLogin}>
           Log In
         </button>
