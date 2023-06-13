@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 
 import getUserInfo from '../../api/getUserInfo'
 import userAuthentication from '../../api/userAuthentication'
+import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
-import Loading from '../loading/Loading'
 import './style.css'
 
-export const Login = (props) => {
+const Login = (props) => {
   const { dispatch } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -86,3 +86,5 @@ export const Login = (props) => {
     </div>
   )
 }
+
+export default Login

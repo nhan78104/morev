@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import getMovieById from '../../api/getMovieById'
+import { Reviews } from '../../components'
 import { MoviesContext } from '../../context/MoviesProvider'
-import Reviews from '../reviews/Reviews'
 import './style.css'
 
 const FilmDetail = () => {

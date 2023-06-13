@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import createUser from '../../api/createUser'
+import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
-import Loading from '../loading/Loading'
 import './style.css'
 
-export const SignUp = () => {
+const SignUp = () => {
   const { setUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState('')
@@ -121,3 +121,5 @@ export const SignUp = () => {
     </div>
   )
 }
+
+export default SignUp
