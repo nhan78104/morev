@@ -105,28 +105,6 @@ const AdminPage = () => {
     },
   ]
 
-  const genresTag = {
-    Action: 'magenta',
-    Adventure: 'red',
-    Animation: 'volcano',
-    Comedy: 'orange',
-    Crime: 'gold',
-    Documentary: 'lime',
-    Drama: 'green',
-    Family: 'cyan',
-    Fantasy: 'blue',
-    History: 'geekblue',
-    Horror: 'purple',
-    Music: 'magenta',
-    Mystery: 'red',
-    Romance: 'volcano',
-    'Science Fiction': 'orange',
-    'TV Movie': 'gold',
-    Thriller: 'lime',
-    War: 'green',
-    Western: 'cyan',
-  }
-
   const handleSidebarClick = (e) => {
     setActivePane(e.key)
   }
@@ -148,6 +126,28 @@ const AdminPage = () => {
   }
 
   useEffect(() => {
+    const genresTag = {
+      Action: 'magenta',
+      Adventure: 'red',
+      Animation: 'volcano',
+      Comedy: 'orange',
+      Crime: 'gold',
+      Documentary: 'lime',
+      Drama: 'green',
+      Family: 'cyan',
+      Fantasy: 'blue',
+      History: 'geekblue',
+      Horror: 'purple',
+      Music: 'magenta',
+      Mystery: 'red',
+      Romance: 'volcano',
+      'Science Fiction': 'orange',
+      'TV Movie': 'gold',
+      Thriller: 'lime',
+      War: 'green',
+      Western: 'cyan',
+    }
+
     const fetchAllUsers = async () => {
       try {
         const res = await getAllUsers(localStorage.getItem('accessToken'))
