@@ -5,7 +5,7 @@ import './App.css'
 import Layout from './components/Layout'
 import AuthProvider from './context/AuthProvider'
 import MoviesProvider from './context/MoviesProvider'
-import { AdminPage, FilmDetail, Home, Login, NotFound, SignUp, Trailer, UserPage } from './pages'
+import { AdminPage, FilmDetail, Home, Login, NotFound, SignUp, Trailer, UserPage, VerifyPage } from './pages'
 import PrivateRoutes from './utils/PrivateRoutes'
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
               <Route path='/sign-up' element={<SignUp />} />
               <Route path='/trailer/:ytTrailerId' element={<Trailer />} />
               <Route path='/film-detail/:id' element={<FilmDetail />} />
+              <Route path='/send-verify-code/verify' element={<VerifyPage />} />
               <Route path='/404-not-found' element={<NotFound />} />
               <Route path='*' element={<Navigate to='/404-not-found' />} />
             </Route>
