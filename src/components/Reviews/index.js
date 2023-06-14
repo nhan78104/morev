@@ -1,36 +1,51 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 
-import api from '../../api/axiosConfig'
+import addReview from '../../api/addReview'
+import getAllReviews from '../../api/getAllReviews'
 import { ReviewForm } from '../../components'
+import { AuthContext } from '../../context/AuthProvider'
 
 const Reviews = ({ movie }) => {
+  const { state } = useContext(AuthContext)
   const revText = useRef()
   const [reviews, setReviews] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
   let params = useParams()
-  const movieId = params.id
+  const id = params.id
 
-  const addReview = async (e) => {
-    e.preventDefault()
-
+  const handleSubmit = async () => {
     const rev = revText.current
 
-    // try {
-    //   const response = await api.post('/api/v1/reviews', { reviewBody: rev.value, imdbId: movieId })
-
-    //   const updatedReview = [{ body: rev.value }]
-
-    //   rev.value = ''
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      await addReview(state.accessToken, id, rev.value.trim())
+      fetchReviews()
+      setReviews(reviews)
+      rev.value = ''
+    } catch (err) {
+      console.error(err)
+    }
   }
 
-  if (isLoading) {
-    return <h3>Loading...</h3>
+  const handleKeyUp = (event) => {
+    // Enter
+    if (event.keyCode === 13) {
+      handleSubmit()
+    }
   }
+
+  const fetchReviews = useCallback(async () => {
+    const allReviews = await getAllReviews(id)
+
+    const reviewMessages = allReviews.map((review) => {
+      return review.content.slice(1, -1)
+    })
+    setReviews(reviewMessages)
+  }, [id])
+
+  useEffect(() => {
+    fetchReviews()
+  }, [fetchReviews])
 
   return (
     <Container>
@@ -48,7 +63,12 @@ const Reviews = ({ movie }) => {
             <>
               <Row>
                 <Col>
-                  <ReviewForm handleSubmit={addReview} revText={revText} LabelText='Write a review' />
+                  <ReviewForm
+                    handleKeyUp={handleKeyUp}
+                    handleSubmit={handleSubmit}
+                    revText={revText}
+                    labelText='Write a review'
+                  />
                 </Col>
               </Row>
               <Row>
@@ -59,18 +79,18 @@ const Reviews = ({ movie }) => {
             </>
           }
           {reviews &&
-            reviews.map((review) => {
+            reviews.map((review, index) => {
               return (
-                <>
+                <div key={index}>
                   <Row>
-                    <Col>{review.body}</Col>
+                    <Col>{review}</Col>
                   </Row>
                   <Row>
                     <Col>
                       <hr />
                     </Col>
                   </Row>
-                </>
+                </div>
               )
             })}
         </Col>
