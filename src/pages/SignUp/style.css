@@ -44,13 +44,17 @@
 }
 
 .signup .signup-btn {
-  border: none;
-  background-color: white;
-  padding: 20px;
+  background: rgb(0, 212, 255);
+  background: linear-gradient(90deg, rgba(0, 212, 255, 1) 0%, rgba(116, 57, 219, 1) 100%);
   border-radius: 10px;
+  height: 48px;
   cursor: pointer;
-  color: #7439db;
-  margin-top: 2rem;
+  color: white;
+  margin-top: 1rem;
+}
+.signup .signup-btn:hover {
+  transform: scale(1.05);
+  color: white;
 }
 
 .signup .link-btn {
@@ -59,7 +63,16 @@
   color: white;
   border: none;
 }
-
+.signup .link-btn a {
+  color: aqua;
+  text-decoration: none;
+}
+.signup .link-btn a:hover {
+  opacity: 0.6;
+}
+.signup .link-btn a:active {
+  opacity: 0.8;
+}
 .signup .error {
   margin: 0.5rem;
   color: #ff3333;

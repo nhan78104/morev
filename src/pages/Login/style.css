@@ -40,13 +40,17 @@
 }
 
 .login .login-btn {
-  border: none;
-  background-color: white;
-  padding: 20px;
+  background: rgb(0, 212, 255);
+  background: linear-gradient(90deg, rgba(0, 212, 255, 1) 0%, rgba(116, 57, 219, 1) 100%);
   border-radius: 10px;
+  height: 48px;
   cursor: pointer;
-  color: #7439db;
+  color: white;
   margin-top: 1rem;
+}
+.login .login-btn:hover {
+  color: white;
+  transform: scale(1.05);
 }
 
 .login .link-btn {
@@ -74,7 +78,16 @@
   color: white;
 }
 
-.login .forget-option:hover,
-.login .link-btn:hover {
+.login .link-btn a {
+  color: aqua;
+  text-decoration: none;
+}
+.login .link-btn a:hover {
+  opacity: 0.6;
+}
+.login .link-btn a:active {
+  opacity: 0.8;
+}
+.login .forget-option:hover {
   color: aqua;
 }

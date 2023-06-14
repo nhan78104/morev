@@ -1,4 +1,4 @@
-import { Checkbox, Input } from 'antd'
+import { Button, Checkbox, Input } from 'antd'
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -79,17 +79,12 @@ const Login = () => {
           </Link>
         </div>
 
-        <button className='login-btn' onClick={handleLogin}>
+        <Button shape='rounded' size='large' className='login-btn' onClick={handleLogin}>
           Log In
-        </button>
-        <button
-          className='link-btn'
-          onClick={() => {
-            navigate('/sign-up')
-          }}
-        >
-          Don't have an account? Sign up here.
-        </button>
+        </Button>
+        <div className='link-btn'>
+          Don't have an account? <Link to='/sign-up'>Sign up</Link> here.
+        </div>
       </div>
     </div>
   )

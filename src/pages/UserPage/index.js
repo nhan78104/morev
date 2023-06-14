@@ -7,6 +7,7 @@ import updateUser from '../../api/updateUser'
 import uploadAvatar from '../../api/uploadAvatar'
 import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
+import defaultAvatar from './../../assets/defaultAvatar.png'
 import './style.css'
 
 const UserPage = () => {
@@ -85,7 +86,7 @@ const UserPage = () => {
         <div className='avatar-container'>
           <div className='avatar-set'>
             <Avatar
-              src={userData != null && userData.avatarUrl != null ? userData.avatarUrl : '/public/defaultAvatar.png'}
+              src={userData != null && userData.avatarUrl != null ? userData.avatarUrl : defaultAvatar}
               size={150}
               style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}
             />

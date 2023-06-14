@@ -38,6 +38,7 @@
 
 .forget-password-container .ant-result-subtitle a:hover {
   color: #5bcae8;
+  opacity: 0.7;
 }
 
 .forget-password-container .success-container {

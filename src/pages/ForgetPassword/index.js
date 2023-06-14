@@ -32,7 +32,11 @@ const ForgetPassword = () => {
           icon={<CheckCircleFilled style={{ color: '#5bcae8' }} />}
           status='success'
           title='Email sent successfully!'
-          subTitle={<Link to='/'>Back to home.</Link>}
+          subTitle={
+            <Link style={{ color: 'aqua' }} to='/'>
+              Back to home.
+            </Link>
+          }
         />
       </div>
     </div>
@@ -41,7 +45,7 @@ const ForgetPassword = () => {
       {isLoading && <Loading />}
       <div className='auth-form-container'>
         <h1 className='signup-title'>Change Password</h1>
-        <label htmlFor='email'>Password</label>
+        <label htmlFor='email'>Email</label>
         <input
           className='input-form'
           value={email}
