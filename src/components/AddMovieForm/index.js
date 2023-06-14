@@ -3,7 +3,6 @@ import { Button, Cascader, DatePicker, Form, Input, Modal, Space, Upload } from 
 import React, { useState } from 'react'
 
 import { addMovie } from '../../api/adminPage'
-import './style.css'
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -79,9 +78,7 @@ const AddMovieForm = () => {
       const data = { ...values, poster: posterImage[0]?.response?.url }
 
       const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
-      console.log(data)
-      const res = await addMovie(accessToken, data)
-      console.log(res)
+      await addMovie(accessToken, data)
     } catch (error) {
       console.log(error)
     }
@@ -100,7 +97,6 @@ const AddMovieForm = () => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
   const handleFileChange = ({ fileList: image }) => {
-    console.log(image)
     setPosterImage(image)
   }
 
@@ -171,24 +167,26 @@ const AddMovieForm = () => {
         valuePropName='fileList'
         getValueFromEvent={normFile}
       >
-        <Upload
-          action='http://localhost:8080/api/v1/images'
-          listType='picture-card'
-          fileList={posterImage}
-          onPreview={handleUploadingPreview}
-          onChange={handleFileChange}
-        >
-          {posterImage?.length >= 1 ? null : uploadButton}
-        </Upload>
-        <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleUploadingCancel}>
-          <img
-            alt='example'
-            style={{
-              width: '100%',
-            }}
-            src={previewImage}
-          />
-        </Modal>
+        <>
+          <Upload
+            action='http://localhost:8080/api/v1/images'
+            listType='picture-card'
+            fileList={posterImage}
+            onPreview={handleUploadingPreview}
+            onChange={handleFileChange}
+          >
+            {posterImage?.length >= 1 ? null : uploadButton}
+          </Upload>
+          <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleUploadingCancel}>
+            <img
+              alt='example'
+              style={{
+                width: '100%',
+              }}
+              src={previewImage}
+            />
+          </Modal>
+        </>
       </Form.Item>
       <Form.Item
         name='genres'
