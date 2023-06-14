@@ -13,10 +13,13 @@
   font-size: 1rem;
 }
 
+.hero-container .descrpition h1 {
+  color: #5bcae8;
+}
+
 .hero-container .descrpition {
   position: absolute;
   z-index: 1;
-  color: #5bcae8;
   top: 8rem;
   left: 4rem;
   max-width: 40%;

@@ -9,7 +9,6 @@ import './style.css'
 const FilmDetail = () => {
   const { movies } = useContext(MoviesContext)
   const [movie, setMovie] = useState(null)
-  // const [recommendMovies, setRecommendMovies] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const params = useParams()
