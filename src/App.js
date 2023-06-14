@@ -8,6 +8,7 @@ import MoviesProvider from './context/MoviesProvider'
 import {
   AdminPage,
   EditMovie,
+  EditUser,
   FilmDetail,
   ForgetPassword,
   Home,
@@ -31,6 +32,7 @@ function App() {
               <Route element={<PrivateRoutes />}>
                 <Route path='/admin' element={<AdminPage />} />
                 <Route path='/user' element={<UserPage />} />
+                <Route path='/user/:id' element={<EditUser />} />
                 <Route path='/movies/:id' element={<EditMovie />} />
               </Route>
               <Route path='/' element={<Home />} />

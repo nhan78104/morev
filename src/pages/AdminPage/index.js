@@ -1,7 +1,7 @@
 import { LaptopOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
 import { FloatButton, Layout, Menu, Popover, Space, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { deleteMovieById, deleteUserById, getAllMovies, getAllUsers } from '../../api/adminPage'
 import { AddMovieForm } from '../../components'
@@ -15,6 +15,7 @@ const AdminPage = () => {
   const [userDataSources, setUserDataSources] = useState([])
   const [movieDataSources, setMovieDataSources] = useState([])
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
   const hide = () => {
     setOpen(false)
   }
@@ -66,7 +67,9 @@ const AdminPage = () => {
       render: (_, record) => {
         return (
           <Space size='middle'>
-            <Link to={`/users/${record.key}`}>Edit</Link>
+            <Link onClick={(e) => onEditUserClick(e, record.key)} to={`/users/${record.key}`}>
+              Edit
+            </Link>
             <Link onClick={(e) => onDeleteUserClick(e, record.key)}>Delete</Link>
           </Space>
         )
@@ -219,6 +222,11 @@ const AdminPage = () => {
     deleteUser(id)
     const newDataSource = userDataSources.filter((data) => data.key !== id)
     setUserDataSources(newDataSource)
+  }
+
+  const onEditUserClick = (e, id) => {
+    e.preventDefault()
+    navigate(`/user/${id}`)
   }
 
   const handleAddUser = () => {}

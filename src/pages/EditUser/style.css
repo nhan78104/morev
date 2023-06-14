@@ -1,0 +1,69 @@
+.user-page {
+  width: 100vw;
+  min-height: calc(100vh - 56px);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 54%, rgba(0, 212, 255, 1) 100%);
+}
+
+.user-container {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-container {
+  display: flex;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  flex-direction: column;
+  margin-top: 4rem;
+  align-items: center;
+  width: 20vw;
+  min-height: 50vh;
+  background-color: rgb(0, 136, 255);
+}
+
+.avatar-container .username {
+  color: #000000;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
+
+.infomation-container {
+  width: 40vw;
+  min-height: 50vh;
+  margin-top: 4rem;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-left: none;
+  background-color: #5bcae8;
+}
+
+.user-page label,
+.ant-form-item-control-input-content {
+  font-size: 1.25rem !important;
+}
+
+.avatar-container .avatar-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.avatar-container .upload-btn {
+  position: absolute;
+  top: 5.5rem;
+  left: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-out 100ms;
+}
+
+.user-page .avatar-container:hover .upload-btn {
+  opacity: 1;
+}
+
+.user-page .error-message {
+  font-weight: 500;
+  font-size: 1rem;
+  -webkit-text-stroke: 0.3px #ff6600;
+}
