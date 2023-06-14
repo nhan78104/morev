@@ -138,7 +138,7 @@ const UserPage = () => {
               </Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
                 <Button type='primary' size='medium' onClick={handleChangeUserInfo}>
-                  Hoàn thành
+                  Done
                 </Button>
               </Form.Item>
             </Form>
@@ -158,7 +158,7 @@ const UserPage = () => {
                     setIsEdit(true)
                   }}
                 >
-                  Chỉnh sửa
+                  Edit
                 </Button>
               </Form.Item>
             </Form>
