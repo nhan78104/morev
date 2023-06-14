@@ -28,3 +28,19 @@ export const addMovie = (accessToken, data) =>
       Authorization: `Bearer ${accessToken}`,
     },
   })
+
+export const getUserInfoById = (accessToken, id) =>
+  api.get(`/api/v1/management/users/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+export const updateUser = (accessToken, userData) =>
+  api.put(`/api/v1/management/users`, userData, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
