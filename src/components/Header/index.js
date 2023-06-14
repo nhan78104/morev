@@ -52,9 +52,6 @@ const Header = () => {
             <Link className='nav-link' to='/'>
               Home
             </Link>
-            <Link className='nav-link' to='/watch-list'>
-              Watch List
-            </Link>
           </Nav>
           {state.isAuthenticated ? (
             <Dropdown menu={{ items, onClick }} trigger={['click']}>
