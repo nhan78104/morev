@@ -85,17 +85,15 @@ const UserPage = () => {
         <div className='avatar-container'>
           <div className='avatar-set'>
             <Avatar
-              src={
-                userData != null && userData.avatarUrl != null
-                  ? userData.avatarUrl
-                  : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
-              }
+              src={userData != null && userData.avatarUrl != null ? userData.avatarUrl : '/public/defaultAvatar.png'}
               size={150}
               style={{ marginTop: '2rem', backgroundColor: '#fde3cf', color: '#f56a00', fontSize: 50 }}
             />
             {isEdit ? (
               <Upload {...props} className='upload-btn'>
-                <Button icon={<UploadOutlined />}>Upload</Button>
+                <Button type='ghost' icon={<UploadOutlined />}>
+                  Upload
+                </Button>
               </Upload>
             ) : (
               <></>

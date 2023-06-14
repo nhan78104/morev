@@ -58,13 +58,7 @@ const Header = () => {
           </Nav>
           {state.isAuthenticated ? (
             <Dropdown menu={{ items, onClick }} trigger={['click']}>
-              <Avatar
-                src={
-                  state.user.avatarUrl != null
-                    ? state.user.avatarUrl
-                    : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
-                }
-              />
+              <Avatar src={state.user.avatarUrl != null ? state.user.avatarUrl : '/public/defaultAvatar.png'} />
             </Dropdown>
           ) : (
             <>
