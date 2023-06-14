@@ -1,5 +1,5 @@
 import { CheckCircleFilled } from '@ant-design/icons'
-import { Result } from 'antd'
+import { Input, Result } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -14,6 +14,8 @@ const ResetPassword = () => {
   const [retypePassword, setRetypePassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [retypePasswordError, setRetypePasswordError] = useState('')
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [retypePasswordVisible, setRetypePasswordVisible] = useState(false)
   const [status, setStatus] = useState(false)
 
   useEffect(() => {
@@ -64,13 +66,14 @@ const ResetPassword = () => {
       <div className='auth-form-container'>
         <h1 className='signup-title'>Change Password</h1>
         <label htmlFor='password'>Password</label>
-        <input
+        <Input.Password
           className='input-form'
           value={password}
           name='password'
           type='password'
           id='password'
           placeholder='Type password....'
+          visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
           onChange={(e) => {
             setPassword(e.target.value)
           }}
@@ -82,12 +85,13 @@ const ResetPassword = () => {
             </span>
           ))}
         <label htmlFor='password-retype'>Re-Type Password</label>
-        <input
+        <Input.Password
           className='input-form'
           value={retypePassword}
           onChange={(e) => setRetypePassword(e.target.value)}
           type='password'
           placeholder='Re-Type your password...'
+          visibilityToggle={{ visible: retypePasswordVisible, onVisibleChange: setRetypePasswordVisible }}
           id='password-retype'
           name='password-retype'
         />

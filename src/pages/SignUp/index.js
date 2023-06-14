@@ -1,5 +1,6 @@
+import { Input } from 'antd'
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import createUser from '../../api/createUser'
 import getUserInfo from '../../api/getUserInfo'
@@ -15,6 +16,7 @@ const SignUp = () => {
   const [fullName, setFullName] = useState('')
   const [fullNameError, setFullNameError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const [emailError, setEmailError] = useState(null)
   const [defaultError, setDefaultError] = useState(null)
 
@@ -93,10 +95,11 @@ const SignUp = () => {
         />
         {emailError && <span className='error'>{emailError}</span>}
         <label htmlFor='password'>Password</label>
-        <input
+        <Input.Password
           className='input-form'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
           type='password'
           placeholder='Password'
           id='password'
@@ -112,14 +115,9 @@ const SignUp = () => {
         <button className='signup-btn' onClick={handleSubmit}>
           Sign Up
         </button>
-        <button
-          className='link-btn'
-          onClick={() => {
-            navigate('/login')
-          }}
-        >
-          Already have an acount? Login here.
-        </button>
+        <div className='link-btn'>
+          Already have an account? <Link to='/login'>Login</Link> here.
+        </div>
       </div>
     </div>
   )

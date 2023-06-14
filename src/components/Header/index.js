@@ -9,6 +9,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthContext } from '../../context/AuthProvider'
+import defaultAvatar from './../../assets/defaultAvatar.png'
 
 const Header = () => {
   const { state, dispatch } = useContext(AuthContext)
@@ -55,7 +56,7 @@ const Header = () => {
           </Nav>
           {state.isAuthenticated ? (
             <Dropdown menu={{ items, onClick }} trigger={['click']}>
-              <Avatar src={state.user.avatarUrl != null ? state.user.avatarUrl : '/public/defaultAvatar.png'} />
+              <Avatar src={state.user.avatarUrl != null ? state.user.avatarUrl : defaultAvatar} />
             </Dropdown>
           ) : (
             <>
