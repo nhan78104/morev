@@ -10,16 +10,15 @@ import './style.css'
 
 const Hero = () => {
   const { movies } = useContext(MoviesContext)
-
   return (
     <div className='movie-carousel-container'>
       {movies?.length && (
         <Carousel>
-          {movies.map((movie, index) => {
+          {movies?.map((movie, index) => {
             return (
               <Paper key={index + 1}>
                 <div className='movie-card-container'>
-                  <div className='movie-card' style={{ '--img': `url("${movie.backdrops[0]}")` }}>
+                  <div className='movie-card' style={{ '--img': `url("${movie?.backdrop && movie?.backdrop[0]}")` }}>
                     <div className='movie-detail'>
                       <div className='movie-poster'>
                         <img src={movie.poster} alt='' />
@@ -33,7 +32,7 @@ const Hero = () => {
                         </Link>
                       </div>
                       <div className='movie-buttons-container'>
-                        <Link to={`/trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
+                        <Link to={`/trailer/${movie?.trailerLink?.substring(movie?.trailerLink.length - 11)}`}>
                           <div className='play-button-icon-container'>
                             <FontAwesomeIcon className='play-button-icon' icon={faCirclePlay} />
                           </div>

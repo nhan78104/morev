@@ -8,7 +8,7 @@ import { Loading } from '../../components'
 import { AuthContext } from '../../context/AuthProvider'
 import './style.css'
 
-const Login = (props) => {
+const Login = () => {
   const { dispatch } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

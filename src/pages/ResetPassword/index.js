@@ -5,7 +5,6 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import resetPassword from '../../api/resetPassword'
 import { Loading } from '../../components/index'
-import './style.css'
 
 const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false)

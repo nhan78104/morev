@@ -1,17 +1,26 @@
-import { LaptopOutlined, UserOutlined } from '@ant-design/icons'
-import { Layout, Menu, Space, Table, Tag } from 'antd'
+import { LaptopOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons'
+import { FloatButton, Layout, Menu, Popover, Space, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { deleteMovieById, deleteUserById, getAllMovies, getAllUsers } from '../../api/adminPage'
+import { AddMovieForm } from '../../components'
 
 const { Content, Sider } = Layout
+const ON_USER_PANE = 'users'
+const ON_MOVIE_PANE = 'movies'
 
 const AdminPage = () => {
-  const [activePane, setActivePane] = useState('users')
+  const [activePane, setActivePane] = useState(ON_MOVIE_PANE)
   const [userDataSources, setUserDataSources] = useState([])
   const [movieDataSources, setMovieDataSources] = useState([])
-
+  const [open, setOpen] = useState(false)
+  const hide = () => {
+    setOpen(false)
+  }
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen)
+  }
   const sidebarMenuItems = [
     {
       key: 'users',
@@ -111,7 +120,7 @@ const AdminPage = () => {
 
   const deleteMovie = async (id) => {
     try {
-      await deleteMovieById(id, localStorage.getItem('accessToken'))
+      await deleteMovieById(id, localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken'))
     } catch (error) {
       console.log(error)
     }
@@ -119,7 +128,7 @@ const AdminPage = () => {
 
   const deleteUser = async (id) => {
     try {
-      await deleteUserById(id, localStorage.getItem('accessToken'))
+      await deleteUserById(id, localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken'))
     } catch (error) {
       console.log(error)
     }
@@ -150,7 +159,7 @@ const AdminPage = () => {
 
     const fetchAllUsers = async () => {
       try {
-        const res = await getAllUsers(localStorage.getItem('accessToken'))
+        const res = await getAllUsers(localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken'))
         setUserDataSources(
           res?.data?.map((user, index) => ({
             index: index + 1,
@@ -176,7 +185,13 @@ const AdminPage = () => {
             title: movie.title,
             releaseDate: movie.releaseDate,
             genres: movie.genres.map((genre, index) => (
-              <Tag key={index + genre} color={genresTag[genre]}>
+              <Tag
+                style={{
+                  marginBottom: '2px',
+                }}
+                key={index + genre}
+                color={genresTag[genre]}
+              >
                 {genre}
               </Tag>
             )),
@@ -186,9 +201,9 @@ const AdminPage = () => {
       } catch (error) {}
     }
 
-    if (activePane === 'users') {
+    if (activePane === ON_USER_PANE) {
       fetchAllUsers()
-    } else if (activePane === 'movies') {
+    } else if (activePane === ON_MOVIE_PANE) {
       fetchAllMovies()
     }
   }, [activePane])
@@ -206,6 +221,10 @@ const AdminPage = () => {
     setUserDataSources(newDataSource)
   }
 
+  const handleAddUser = () => {}
+
+  const handleAddMovie = () => {}
+
   return (
     <Layout
       style={{
@@ -215,8 +234,8 @@ const AdminPage = () => {
       <Sider style={{}} width={200}>
         <Menu
           mode='inline'
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['users']}
+          defaultSelectedKeys={[ON_MOVIE_PANE]}
+          defaultOpenKeys={[ON_MOVIE_PANE]}
           style={{
             height: '100%',
           }}
@@ -230,9 +249,26 @@ const AdminPage = () => {
           minHeight: 280,
         }}
       >
+        {activePane === ON_MOVIE_PANE && (
+          <Popover
+            content={<AddMovieForm />}
+            title={'Add Movie'}
+            trigger='click'
+            open={open}
+            onOpenChange={handleOpenChange}
+          >
+            <FloatButton
+              type='primary'
+              tooltip={<div>Add Movie</div>}
+              onClick={handleAddMovie}
+              icon={<PlusOutlined />}
+            />
+          </Popover>
+        )}
+
         <Table
-          dataSource={activePane === 'users' ? userDataSources : movieDataSources}
-          columns={activePane === 'users' ? userColumn : movieColumn}
+          dataSource={activePane === ON_USER_PANE ? userDataSources : movieDataSources}
+          columns={activePane === ON_USER_PANE ? userColumn : movieColumn}
         />
       </Content>
     </Layout>
