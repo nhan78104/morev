@@ -40,7 +40,7 @@ const Reviews = ({ movie }) => {
     const reviewMessages = allReviews.map((review) => {
       return review.content.slice(1, -1)
     })
-    setReviews(reviewMessages)
+    setReviews(reviewMessages.reverse())
   }, [id])
 
   useEffect(() => {
@@ -48,59 +48,61 @@ const Reviews = ({ movie }) => {
   }, [fetchReviews])
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h3>Reviews</h3>
-        </Col>
-      </Row>
-      <Row className='mt-2'>
-        <Col>
-          <img src={movie?.poster} alt='' />
-        </Col>
-        <Col>
-          {
-            <>
-              <Row>
-                <Col>
-                  <ReviewForm
-                    handleKeyUp={handleKeyUp}
-                    handleSubmit={handleSubmit}
-                    revText={revText}
-                    labelText='Write a review'
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <hr />
-                </Col>
-              </Row>
-            </>
-          }
-          {reviews &&
-            reviews.map((review, index) => {
-              return (
-                <div key={index}>
-                  <Row>
-                    <Col>{review}</Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <hr />
-                    </Col>
-                  </Row>
-                </div>
-              )
-            })}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <hr />
-        </Col>
-      </Row>
-    </Container>
+    state.accessToken && (
+      <Container>
+        <Row>
+          <Col>
+            <h3>Reviews</h3>
+          </Col>
+        </Row>
+        <Row className='mt-2'>
+          <Col>
+            <img src={movie?.poster} alt='' />
+          </Col>
+          <Col>
+            {
+              <>
+                <Row>
+                  <Col>
+                    <ReviewForm
+                      handleKeyUp={handleKeyUp}
+                      handleSubmit={handleSubmit}
+                      revText={revText}
+                      labelText='Write a review'
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <hr />
+                  </Col>
+                </Row>
+              </>
+            }
+            {reviews &&
+              reviews.map((review, index) => {
+                return (
+                  <div key={index}>
+                    <Row>
+                      <Col>{review}</Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <hr />
+                      </Col>
+                    </Row>
+                  </div>
+                )
+              })}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <hr />
+          </Col>
+        </Row>
+      </Container>
+    )
   )
 }
 
