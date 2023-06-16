@@ -16,7 +16,7 @@ const Header = () => {
   const navigate = useNavigate()
 
   const items = [
-    { label: 'Admin', key: 'admin' },
+    state ? state?.user?.role === 'ADMIN' && { label: 'Admin', key: 'admin' } : {},
     { label: 'Profile', key: 'profile' },
     { label: 'Logout', key: 'logout' },
   ]
